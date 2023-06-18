@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Button from '../Button';
+import Toast from '../Toast';
 
 import styles from './ToastPlayground.module.css';
 
@@ -10,6 +11,7 @@ function ToastPlayground() {
   // Inititialise state for user input fields
   const [message, setMessage] = React.useState('');
   const [variant, setVariant] = React.useState(VARIANT_OPTIONS[0]);
+  const [isPopped, setIsPopped] = React.useState(false);
 
   return (
     <div className={styles.wrapper}>
@@ -17,6 +19,12 @@ function ToastPlayground() {
         <img alt="Cute toast mascot" src="/toast.png" />
         <h1>Toast Playground</h1>
       </header>
+
+      { isPopped && (
+        <Toast variant={variant} dismiss={event => setIsPopped(false)}>
+          { message }
+        </Toast>
+      )}
 
       <div className={styles.controlsWrapper}>
         <div className={styles.row}>
@@ -68,7 +76,7 @@ function ToastPlayground() {
           <div
             className={`${styles.inputWrapper} ${styles.radioWrapper}`}
           >
-            <Button>Pop Toast!</Button>
+            <Button onClick={event => setIsPopped(true)}>Pop Toast!</Button>
           </div>
         </div>
       </div>
